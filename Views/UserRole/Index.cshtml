@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Assign Roles";
+}
+
+<h1>Assign Roles</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a class="btn btn-light" asp-action="MakeTeacher" asp-route-id="@item.Id">Make Teacher  </a>
+                    <a class="btn btn-light" asp-action="MakeStudent" asp-route-id="@item.Id">Make Student  </a>
+                    <form class="d-inline" asp-action="MakeAdmin" asp-route-id="@item.Id" method="post">
+                    <button class="btn btn-light" name ="button "type="submit" >Make Admin</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

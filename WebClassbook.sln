@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClassbook", "WebClassbook.csproj", "{6332AFFA-8AFF-4B34-AAD0-D349BC03E172}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6332AFFA-8AFF-4B34-AAD0-D349BC03E172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6332AFFA-8AFF-4B34-AAD0-D349BC03E172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6332AFFA-8AFF-4B34-AAD0-D349BC03E172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6332AFFA-8AFF-4B34-AAD0-D349BC03E172}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2792FFF-84B1-4ABD-94AF-B4EAA8E736ED}
+	EndGlobalSection
+EndGlobal
