@@ -19,9 +19,14 @@
 
         </tr>
     </thead>
+    @{
+        int i = 0;
+        }
     <tbody>
         @foreach (var item in Model)
         {
+            string makeAdminBtn = $"MakeAdminBtn{i}";
+            string Opts = $"Opts{i}";
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -32,11 +37,39 @@
                 <td>
                     <a class="btn btn-light" asp-action="MakeTeacher" asp-route-id="@item.Id">Make Teacher  </a>
                     <a class="btn btn-light" asp-action="MakeStudent" asp-route-id="@item.Id">Make Student  </a>
-                    <form class="d-inline" asp-action="MakeAdmin" asp-route-id="@item.Id" method="post">
-                    <button class="btn btn-light" name ="button "type="submit" >Make Admin</button>
-                    </form>
+                    <div class="d-inline">
+
+                        <button id="@makeAdminBtn" class="btn btn-light" type="button" onclick="showOpt(@i)">Make Admin</button>
+
+                        <div class="d-none" id="@Opts">
+                            <form class="d-inline" asp-action="MakeAdmin" asp-route-id="@item.Id" method="post">
+                                <button class="btn btn-success" name="button" type="submit">Yes</button>
+                            </form>
+
+                            <button class="btn btn-danger d-inline" type="button" onclick="hideOpt(@i)">No</button>
+                        </div>
+                    </div>
                 </td>
             </tr>
+            i++;
         }
     </tbody>
 </table>
+
+
+<script>
+
+    function showOpt(i) {
+        document.getElementById("Opts" + i).classList.remove("d-none");
+        document.getElementById("Opts" + i ).classList.add("d-inline");
+
+        document.getElementById("MakeAdminBtn" +i).classList.add("d-none");
+    }
+
+    function hideOpt(i) {
+        document.getElementById("Opts" + i).classList.remove("d-inline");
+        document.getElementById("Opts" + i).classList.add("d-none");
+
+        document.getElementById("MakeAdminBtn" +i).classList.remove("d-none");
+    }
+</script>

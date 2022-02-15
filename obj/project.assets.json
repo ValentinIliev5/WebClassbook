@@ -7799,11 +7799,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj",
+      "projectUniqueName": "C:\\WebClassbook\\WebClassbook.csproj",
       "projectName": "WebClassbook",
-      "projectPath": "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj",
+      "projectPath": "C:\\WebClassbook\\WebClassbook.csproj",
       "packagesPath": "C:\\Users\\justw\\.nuget\\packages\\",
-      "outputPath": "D:\\classssssssss\\WebClassbook\\obj\\",
+      "outputPath": "C:\\WebClassbook\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

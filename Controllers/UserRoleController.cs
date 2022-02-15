@@ -157,10 +157,10 @@ namespace WebClassbook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MakeAdmin(string id, string grade)
+        public async Task<IActionResult> MakeAdmin(string id)
         {
             Admin admin = new Admin();
-
+            admin.ApplicationUserID = id;
             _context.Add(admin);
             await _context.SaveChangesAsync();
             await _userManager.AddToRoleAsync(_context.Users.First(w => w.Id == id), "Admin");
