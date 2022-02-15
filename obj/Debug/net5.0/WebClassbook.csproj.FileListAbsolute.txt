@@ -543,11 +543,6 @@ C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\StudentsEdit\EditStudent.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\StudentsEdit\Index.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Create.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Delete.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Details.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Edit.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Index.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Subjects\Create.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Subjects\Delete.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Subjects\Details.cshtml.g.cs
@@ -555,11 +550,6 @@ C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Subjects\Edit.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Subjects\Index.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\TeacherEdit\EditTeacher.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\TeacherEdit\Index.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Teachers\Create.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Teachers\Delete.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Teachers\Details.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Teachers\Edit.cshtml.g.cs
-C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Teachers\Index.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\UserRole\Index.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\UserRole\MakeStudent.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\UserRole\MakeTeacher.cshtml.g.cs
@@ -573,3 +563,8 @@ C:\WebClassbook\obj\Debug\net5.0\WebClassbook.dll
 C:\WebClassbook\obj\Debug\net5.0\ref\WebClassbook.dll
 C:\WebClassbook\obj\Debug\net5.0\WebClassbook.pdb
 C:\WebClassbook\obj\Debug\net5.0\WebClassbook.genruntimeconfig.cache
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Create.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Delete.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Details.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Edit.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Index.cshtml.g.cs

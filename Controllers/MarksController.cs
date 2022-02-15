@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +10,23 @@ using WebClassbook.Models;
 
 namespace WebClassbook.Controllers
 {
-    [AllowAnonymous]
-    public class TeachersController : Controller
+    public class MarksController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TeachersController(ApplicationDbContext context)
+        public MarksController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Teachers
+        // GET: Marks
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Teachers.Include(t => t.ApplicationUser);
+            var applicationDbContext = _context.Marks.Include(m => m.Subject).Include(m => m.Teacher);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Teachers/Details/5
+        // GET: Marks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,42 +34,46 @@ namespace WebClassbook.Controllers
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers
-                .Include(t => t.ApplicationUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (teacher == null)
+            var mark = await _context.Marks
+                .Include(m => m.Subject)
+                .Include(m => m.Teacher)
+                .FirstOrDefaultAsync(m => m.MarkID == id);
+            if (mark == null)
             {
                 return NotFound();
             }
 
-            return View(teacher);
+            return View(mark);
         }
 
-        // GET: Teachers/Create
+        // GET: Marks/Create
         public IActionResult Create()
         {
-            ViewData["SubjectName"] = new SelectList(_context.Subject, "SubjectName", "SubjectName");
+            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID");
+            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id");
             return View();
         }
 
-        // POST: Teachers/Create
+        // POST: Marks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Grade,ApplicationUserID")] Teacher teacher)
+        public async Task<IActionResult> Create(DateTime Date, double Number,string studentName)
         {
+            Mark mark = new Mark();
             if (ModelState.IsValid)
             {
-                _context.Add(teacher);
+                _context.Add(mark);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserID"] = new SelectList(_context.Users, "Id", "Id", teacher.ApplicationUserID);
-            return View(teacher);
+            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID", mark.SubjectID);
+            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id", mark.TeacherID);
+            return View(mark);
         }
 
-        // GET: Teachers/Edit/5
+        // GET: Marks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,23 +81,24 @@ namespace WebClassbook.Controllers
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
+            var mark = await _context.Marks.FindAsync(id);
+            if (mark == null)
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserID"] = new SelectList(_context.Users, "Id", "Id", teacher.ApplicationUserID);
-            return View(teacher);
+            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID", mark.SubjectID);
+            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id", mark.TeacherID);
+            return View(mark);
         }
 
-        // POST: Teachers/Edit/5
+        // POST: Marks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Grade,ApplicationUserID")] Teacher teacher)
+        public async Task<IActionResult> Edit(int id, [Bind("MarkID,Date,Number,Description,StudentID,SubjectID,TeacherID")] Mark mark)
         {
-            if (id != teacher.Id)
+            if (id != mark.MarkID)
             {
                 return NotFound();
             }
@@ -104,12 +107,12 @@ namespace WebClassbook.Controllers
             {
                 try
                 {
-                    _context.Update(teacher);
+                    _context.Update(mark);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeacherExists(teacher.Id))
+                    if (!MarkExists(mark.MarkID))
                     {
                         return NotFound();
                     }
@@ -120,11 +123,12 @@ namespace WebClassbook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserID"] = new SelectList(_context.Users, "Id", "Id", teacher.ApplicationUserID);
-            return View(teacher);
+            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID", mark.SubjectID);
+            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id", mark.TeacherID);
+            return View(mark);
         }
 
-        // GET: Teachers/Delete/5
+        // GET: Marks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,31 +136,32 @@ namespace WebClassbook.Controllers
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers
-                .Include(t => t.ApplicationUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (teacher == null)
+            var mark = await _context.Marks
+                .Include(m => m.Subject)
+                .Include(m => m.Teacher)
+                .FirstOrDefaultAsync(m => m.MarkID == id);
+            if (mark == null)
             {
                 return NotFound();
             }
 
-            return View(teacher);
+            return View(mark);
         }
 
-        // POST: Teachers/Delete/5
+        // POST: Marks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
-            _context.Teachers.Remove(teacher);
+            var mark = await _context.Marks.FindAsync(id);
+            _context.Marks.Remove(mark);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TeacherExists(int id)
+        private bool MarkExists(int id)
         {
-            return _context.Teachers.Any(e => e.Id == id);
+            return _context.Marks.Any(e => e.MarkID == id);
         }
     }
 }
