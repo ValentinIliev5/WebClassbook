@@ -7,22 +7,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebClassbook.Data;
 using WebClassbook.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebClassbook.Controllers
 {
+    [Authorize(Roles = "Admin,Teacher")]
     public class MarksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public MarksController(ApplicationDbContext context)
+        public MarksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+        }
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> StudentsList(string searchString) 
+        {
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(await _context.Students.Include(m => m.ApplicationUser).Where(w=>w.Grade.Contains(searchString)).ToListAsync());
+            }
+            return View(await _context.Students.Include(m=>m.ApplicationUser).ToListAsync());
         }
 
         // GET: Marks
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Marks.Include(m => m.Subject).Include(m => m.Teacher);
+            var applicationDbContext = _context.Marks.Include(w=>w.Student).
+                ThenInclude(w=>w.ApplicationUser).
+                Include(m => m.Subject).
+                Include(m => m.Teacher).
+                ThenInclude(w=>w.ApplicationUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,8 +68,9 @@ namespace WebClassbook.Controllers
         // GET: Marks/Create
         public IActionResult Create()
         {
-            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID");
-            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id");
+            ViewData["SubjectName"] = new SelectList(_context.Subject.Include(w=>w.Teachers).Where(
+                w => w.Teachers.Contains(GetCurrentTeacher())), "SubjectName", "SubjectName");
+
             return View();
         }
 
@@ -59,20 +79,55 @@ namespace WebClassbook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DateTime Date, double Number,string studentName)
+        public async Task<IActionResult> Create(int id,DateTime Date, double Number,string studentName)
         {
             Mark mark = new Mark();
+            mark.Date = Date;
+            mark.Number = Number;
+            if (Number < 3)
+            {
+                mark.Description = "Слаб";
+                mark.Number = 2;
+            }
+            else
+            {
+                switch (Math.Round(Number))
+                {
+                    case 3:
+                        mark.Description = "Среден";
+                        break;
+                    case 4:
+                        mark.Description = "Добър";
+                        break;
+                    case 5:
+                        mark.Description = "Мн. Добър";
+                        break;
+                    case 6:
+                        mark.Description = "Отличен";
+                        break;
+                }
+            }
+            mark.StudentID = id;
+            mark.TeacherID = GetCurrentTeacher().Id;
+            mark.SubjectID = _context.Subject.First(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()).SubjectID;
             if (ModelState.IsValid)
             {
                 _context.Add(mark);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID", mark.SubjectID);
-            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id", mark.TeacherID);
+
+            ViewData["SubjectName"] = new SelectList(_context.Subject.Include(w => w.Teachers).Where(
+                w => w.Teachers.Contains(_context.
+                Teachers.First(w => w.ApplicationUserID == _userManager.GetUserId(HttpContext.User))))
+                , "SubjectName", "SubjectName");
+
             return View(mark);
         }
-
+        public Teacher GetCurrentTeacher() {
+            return _context.
+                Teachers.First(w => w.ApplicationUserID == _userManager.GetUserId(HttpContext.User));
+        }
         // GET: Marks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

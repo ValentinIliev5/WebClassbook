@@ -15,7 +15,7 @@ namespace WebClassbook.Models
 
        public List<Mark> Marks { get; set; }
        public List<Absence> Absences { get; set; }
-       //public List<Test> Tests { get; set; }
+       public List<Exam> Exams { get; set; }
        
     }
 }

@@ -568,3 +568,4 @@ C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Delete.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Details.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Edit.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\Index.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Marks\StudentsList.cshtml.g.cs

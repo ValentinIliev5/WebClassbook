@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebClassbook.Data;
 
 namespace WebClassbook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220215180243_Marktrsh")]
+    partial class Marktrsh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -593,7 +595,7 @@ namespace WebClassbook.Migrations
             modelBuilder.Entity("WebClassbook.Models.Exam", b =>
                 {
                     b.HasOne("WebClassbook.Models.Subject", "Subject")
-                        .WithMany("Exams")
+                        .WithMany()
                         .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -687,8 +689,6 @@ namespace WebClassbook.Migrations
             modelBuilder.Entity("WebClassbook.Models.Subject", b =>
                 {
                     b.Navigation("Absences");
-
-                    b.Navigation("Exams");
 
                     b.Navigation("Marks");
                 });
