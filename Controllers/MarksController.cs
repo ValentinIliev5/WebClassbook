@@ -23,6 +23,8 @@ namespace WebClassbook.Controllers
             _context = context;
             _userManager = userManager;
         }
+
+
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> StudentsList(string searchString) 
         {
@@ -37,8 +39,6 @@ namespace WebClassbook.Controllers
         // GET: Marks
         public async Task<IActionResult> Index(string searchString)
         {
-
-
 
             var applicationDbContext = _context.Marks.Include(w => w.Student).
                 ThenInclude(w => w.ApplicationUser).

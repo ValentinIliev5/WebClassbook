@@ -30,18 +30,6 @@ namespace WebClassbook.Controllers
 
             List<ApplicationUser> forReturn = new List<ApplicationUser>();
 
-            //forReturn = _context.Users.
-            //    FromSqlRaw(@"SELECT * FROM 
-            //                AspNetUsers U JOIN AspNetUserRoles UR
-            //                ON U.Id = UR.UserId
-            //                WHERE UR.RoleId = 4
-            //                EXCEPT
-            //                SELECT * FROM
-            //                AspNetUsers U JOIN AspNetUserRoles UR
-            //                ON U.Id = UR.UserId
-            //                WHERE UR.RoleId = 1 OR UR.RoleId = 2 OR UR.RoleId = 3")
-            //    .ToList();
-
             foreach (ApplicationUser user in _context.Users)
             {
                 var roles = await _userManager.GetRolesAsync(user);

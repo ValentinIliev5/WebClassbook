@@ -770,3 +770,4 @@ C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.dll
 C:\Project\WebClassbook\obj\Debug\net5.0\ref\WebClassbook.dll
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.pdb
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.genruntimeconfig.cache
+C:\Project\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Index.cshtml.g.cs
