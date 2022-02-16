@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\WebClassbook\\WebClassbook.csproj": {}
+    "C:\\Project\\WebClassbook\\WebClassbook.csproj": {}
   },
   "projects": {
-    "C:\\WebClassbook\\WebClassbook.csproj": {
+    "C:\\Project\\WebClassbook\\WebClassbook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WebClassbook\\WebClassbook.csproj",
+        "projectUniqueName": "C:\\Project\\WebClassbook\\WebClassbook.csproj",
         "projectName": "WebClassbook",
-        "projectPath": "C:\\WebClassbook\\WebClassbook.csproj",
+        "projectPath": "C:\\Project\\WebClassbook\\WebClassbook.csproj",
         "packagesPath": "C:\\Users\\justw\\.nuget\\packages\\",
-        "outputPath": "C:\\WebClassbook\\obj\\",
+        "outputPath": "C:\\Project\\WebClassbook\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

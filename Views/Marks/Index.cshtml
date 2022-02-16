@@ -5,6 +5,12 @@
 }
 
 <h1>Index</h1>
+<form asp-controller="Marks" asp-action="Index" method="get">
+    <p>
+        Student Name:  <input class="form-control-sm" type="text" name="SearchString" />
+        <input class ="btn btn-light" type="submit" value="Search" />
+    </p>
+</form>
 
 <table class="table">
     <thead>
@@ -25,13 +31,13 @@
                 @Html.DisplayNameFor(model => model.Student.ClassNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student.ApplicationUser.Name)
+               @Html.DisplayNameFor(model => model.Student)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subject.SubjectName)
+                @Html.DisplayNameFor(model => model.Subject)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher.ApplicationUser.Name)
+              @Html.DisplayNameFor(model => model.Teacher)
             </th>
             <th></th>
         </tr>
@@ -63,12 +69,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Teacher.ApplicationUser.Name)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MarkID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MarkID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MarkID">Delete</a>
+            <td class="text-center">
+                <a class="btn btn-light" asp-action="Edit" asp-route-id="@item.MarkID">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MarkID">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+@if (User.IsInRole("Teacher"))
+{
+    <a class="btn btn-light" asp-action="StudentsList">Add mark</a>
+}

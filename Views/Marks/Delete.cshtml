@@ -30,28 +30,28 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StudentID)
+            @Html.DisplayNameFor(model => model.Student)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StudentID)
+            @Html.DisplayFor(model => model.Student.ApplicationUser.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Subject)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subject.SubjectID)
+            @Html.DisplayFor(model => model.Subject.SubjectName)
         </dd class>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Teacher)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Teacher.Id)
+            @Html.DisplayFor(model => model.Teacher.ApplicationUser.Name)
         </dd class>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="MarkID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <a class="btn btn-light" asp-action="Index">Back to List</a>
     </form>
 </div>

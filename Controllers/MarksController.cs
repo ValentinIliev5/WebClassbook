@@ -35,34 +35,33 @@ namespace WebClassbook.Controllers
         }
 
         // GET: Marks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.Marks.Include(w=>w.Student).
-                ThenInclude(w=>w.ApplicationUser).
+
+
+
+            var applicationDbContext = _context.Marks.Include(w => w.Student).
+                ThenInclude(w => w.ApplicationUser).
                 Include(m => m.Subject).
                 Include(m => m.Teacher).
-                ThenInclude(w=>w.ApplicationUser);
+                ThenInclude(w => w.ApplicationUser);
+            if (User.IsInRole("Teacher"))
+            {
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    return View(await applicationDbContext.
+                        Where(w => w.TeacherID == GetCurrentTeacher().Id).
+                        Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).ToListAsync());
+                }
+                return View(await applicationDbContext.Where(w=>w.TeacherID==GetCurrentTeacher().Id).ToListAsync());
+            }
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(await applicationDbContext.
+                    Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).ToListAsync());
+            }
             return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Marks/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var mark = await _context.Marks
-                .Include(m => m.Subject)
-                .Include(m => m.Teacher)
-                .FirstOrDefaultAsync(m => m.MarkID == id);
-            if (mark == null)
-            {
-                return NotFound();
-            }
-
-            return View(mark);
         }
 
         // GET: Marks/Create
@@ -79,6 +78,31 @@ namespace WebClassbook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+        public string GetDescr(double number) 
+        {
+            if (number<3)
+            {
+                return "Bad";
+            }
+            else
+            {
+                switch (Math.Round(number))
+                {
+                    case 3:
+                        return "Poor";
+                    case 4:
+                        return "Fair";
+                    case 5:
+                        return "Good";
+                    case 6:
+                        return "Excellent";
+                }
+            }
+            return "";
+        }
+
+
         public async Task<IActionResult> Create(int id,DateTime Date, double Number,string studentName)
         {
             Mark mark = new Mark();
@@ -86,27 +110,9 @@ namespace WebClassbook.Controllers
             mark.Number = Number;
             if (Number < 3)
             {
-                mark.Description = "Слаб";
                 mark.Number = 2;
             }
-            else
-            {
-                switch (Math.Round(Number))
-                {
-                    case 3:
-                        mark.Description = "Среден";
-                        break;
-                    case 4:
-                        mark.Description = "Добър";
-                        break;
-                    case 5:
-                        mark.Description = "Мн. Добър";
-                        break;
-                    case 6:
-                        mark.Description = "Отличен";
-                        break;
-                }
-            }
+            mark.Description = GetDescr(Number);
             mark.StudentID = id;
             mark.TeacherID = GetCurrentTeacher().Id;
             mark.SubjectID = _context.Subject.First(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()).SubjectID;
@@ -136,13 +142,12 @@ namespace WebClassbook.Controllers
                 return NotFound();
             }
 
-            var mark = await _context.Marks.FindAsync(id);
+            var mark = await _context.Marks.Include(w=>w.Subject).FirstAsync(w=>w.MarkID==id);
             if (mark == null)
             {
                 return NotFound();
             }
-            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID", mark.SubjectID);
-            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id", mark.TeacherID);
+            ViewData["SubjectName"] = new SelectList(_context.Subject.Where(w=>w.Teachers.Select(w=>w.Id).Contains(mark.TeacherID)), "SubjectName", "SubjectName", mark.Subject.SubjectName);
             return View(mark);
         }
 
@@ -151,36 +156,39 @@ namespace WebClassbook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MarkID,Date,Number,Description,StudentID,SubjectID,TeacherID")] Mark mark)
+        public async Task<IActionResult> Edit(int id, DateTime Date, double Number)
         {
-            if (id != mark.MarkID)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(mark);
+                    _context.Marks.First(w => w.MarkID == id).Date = Date;
+
+                    if (Number < 3)
+                    {
+                        _context.Marks.First(w => w.MarkID == id).Number = 2;
+                    }
+
+                    else _context.Marks.First(w => w.MarkID == id).Number = Number;
+                    _context.Marks.First(w => w.MarkID == id).Description = GetDescr(Number);
+
+                    if (_context.Subject.Any(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()))
+                    {
+                        _context.Marks.First(w => w.MarkID == id).SubjectID = _context.Subject.First(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()).SubjectID;
+                    }
+                    
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MarkExists(mark.MarkID))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
+
             }
-            ViewData["SubjectID"] = new SelectList(_context.Subject, "SubjectID", "SubjectID", mark.SubjectID);
-            ViewData["TeacherID"] = new SelectList(_context.Teachers, "Id", "Id", mark.TeacherID);
-            return View(mark);
+            ViewData["SubjectName"] = new SelectList(_context.Subject, "SubjectName", "SubjectName");
+            return View();
         }
 
         // GET: Marks/Delete/5
@@ -191,10 +199,13 @@ namespace WebClassbook.Controllers
                 return NotFound();
             }
 
-            var mark = await _context.Marks
-                .Include(m => m.Subject)
-                .Include(m => m.Teacher)
-                .FirstOrDefaultAsync(m => m.MarkID == id);
+            var mark = await _context.Marks.
+                Include(m=>m.Student).
+                ThenInclude(m=>m.ApplicationUser).
+                Include(m => m.Subject).
+                Include(m => m.Teacher).
+                ThenInclude(m=>m.ApplicationUser).
+                FirstOrDefaultAsync(m => m.MarkID == id);
             if (mark == null)
             {
                 return NotFound();
