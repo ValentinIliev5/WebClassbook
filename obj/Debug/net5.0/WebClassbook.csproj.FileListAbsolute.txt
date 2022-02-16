@@ -717,7 +717,6 @@ C:\Project\WebClassbook\bin\Debug\net5.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Project\WebClassbook\bin\Debug\net5.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Project\WebClassbook\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Project\WebClassbook\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.csprojAssemblyReference.cache
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.GeneratedMSBuildEditorConfig.editorconfig
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.AssemblyInfoInputs.cache
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.AssemblyInfo.cs
@@ -771,3 +770,5 @@ C:\Project\WebClassbook\obj\Debug\net5.0\ref\WebClassbook.dll
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.pdb
 C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.genruntimeconfig.cache
 C:\Project\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Index.cshtml.g.cs
+C:\Project\WebClassbook\obj\Debug\net5.0\WebClassbook.csproj.AssemblyReference.cache
+C:\Project\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\MyMarks.cshtml.g.cs

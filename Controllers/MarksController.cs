@@ -76,8 +76,7 @@ namespace WebClassbook.Controllers
         // POST: Marks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
 
         public string GetDescr(double number) 
         {
@@ -102,7 +101,8 @@ namespace WebClassbook.Controllers
             return "";
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id,DateTime Date, double Number,string studentName)
         {
             Mark mark = new Mark();

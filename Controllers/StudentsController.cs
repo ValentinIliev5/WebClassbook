@@ -43,9 +43,22 @@ namespace WebClassbook.Controllers
             return View();
 
         }
-        public IActionResult MyMarks()
+        public async Task<IActionResult> MyMarks(string searchString)
         {
-            return View();
+            var applicationDbContext = _context.Marks.Include(w => w.Student).
+               ThenInclude(w => w.ApplicationUser).
+               Include(m => m.Subject).
+               Include(m => m.Teacher).
+               ThenInclude(w => w.ApplicationUser);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View( await applicationDbContext.
+                    Where(w => w.StudentID == GetCurrentStudent().ID).
+                    Where(w => w.Subject.SubjectName.Contains(searchString)).ToListAsync());
+            }
+            return View( await applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID).ToListAsync());
+
         }
         //public async Task<IActionResult> MyRemarks() todo       BRB
         //{
