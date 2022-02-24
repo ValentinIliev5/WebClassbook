@@ -39,6 +39,9 @@ namespace WebClassbook.Controllers
             string avgMark = _context.Marks.Where(w => w.StudentID == GetCurrentStudent().ID).Average(w => w.Number).ToString("0.00");
             ViewData["AvgMark"] = avgMark;
 
+            string incExams = _context.Exams.Where(w=>w.Class==GetCurrentStudent().Grade).Count(w => w.Date > DateTime.Now).ToString();
+            ViewData["incExams"] = incExams;
+
             ViewData["StudentInfo"]= GetCurrentStudent().ApplicationUser.Name + " - " + GetCurrentStudent().Grade;
             return View();
 
@@ -60,10 +63,19 @@ namespace WebClassbook.Controllers
             return View( await applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID).ToListAsync());
 
         }
-        //public async Task<IActionResult> MyExams() todo 
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> MyExams(string searchString) 
+        {
+            var applicationDbContext = _context.Exams.Include(w => w.Subject).
+                Include(w=>w.Teacher).ThenInclude(w=>w.ApplicationUser);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(await applicationDbContext.
+                    Where(w => w.Class == GetCurrentStudent().Grade).
+                    Where(w => w.Subject.SubjectName.Contains(searchString)).ToListAsync());
+            }
+            return View(await applicationDbContext.Where(w=>w.Class== GetCurrentStudent().Grade).ToListAsync());
+        }
         //public async Task<IActionResult> MyRemarks() todo       BRB
         //{
         //    return View();
