@@ -60,14 +60,15 @@ namespace WebClassbook.Controllers
             return View( await applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID).ToListAsync());
 
         }
-        //public async Task<IActionResult> MyRemarks() todo       BRB
-        //{
-        //    return View();
-        //}
         //public async Task<IActionResult> MyExams() todo 
         //{
         //    return View();
         //}
+        //public async Task<IActionResult> MyRemarks() todo       BRB
+        //{
+        //    return View();
+        //}
+        
         //public async Task<IActionResult> MyAbsences() todo 
         //{
         //    return View();
