@@ -987,3 +987,8 @@ D:\WebClassbook\obj\Debug\net5.0\WebClassbook.dll
 D:\WebClassbook\obj\Debug\net5.0\ref\WebClassbook.dll
 D:\WebClassbook\obj\Debug\net5.0\WebClassbook.pdb
 D:\WebClassbook\obj\Debug\net5.0\WebClassbook.genruntimeconfig.cache
+D:\WebClassbook\obj\Debug\net5.0\Razor\Views\Absences\Create.cshtml.g.cs
+D:\WebClassbook\obj\Debug\net5.0\Razor\Views\Absences\Delete.cshtml.g.cs
+D:\WebClassbook\obj\Debug\net5.0\Razor\Views\Absences\Edit.cshtml.g.cs
+D:\WebClassbook\obj\Debug\net5.0\Razor\Views\Absences\Index.cshtml.g.cs
+D:\WebClassbook\obj\Debug\net5.0\Razor\Views\Absences\StudentsList.cshtml.g.cs

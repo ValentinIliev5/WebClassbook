@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+c9jCXM5GWtavg+FyAUbt/zQenktlnICiiirb0j0UZY1QPMpj/NJmjC282k9T67VSo4ZClNFGjoM1iN8VB2j6g==",
+  "dgSpecHash": "jttc6NN4x36SHBZ8ZX7BMW/gOhvuKYrcuA60MzuyF+ADKYKcRvcZvqyulH3CZnZu+j/rrsuDQGxtRZ1cPKo6Xg==",
   "success": true,
-  "projectFilePath": "D:\\WebClassbook\\WebClassbook.csproj",
+  "projectFilePath": "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.12\\microsoft.aspnetcore.cryptography.internal.5.0.12.nupkg.sha512",

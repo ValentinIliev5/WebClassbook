@@ -42,7 +42,7 @@ namespace WebClassbook.Controllers
             return View(forReturn);
         }
 
-        public async Task<IActionResult> MakeTeacher(string id)
+        public IActionResult MakeTeacher(string id)
         {
 
             if (id == string.Empty)
@@ -96,8 +96,7 @@ namespace WebClassbook.Controllers
             return View(teacher);
         }
 
-
-        public async Task<IActionResult> MakeStudent(string id)
+        public IActionResult MakeStudent(string id)
         {
 
             if (id == string.Empty)

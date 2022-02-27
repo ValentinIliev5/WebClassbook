@@ -17,6 +17,7 @@ namespace WebClassbook.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        const int ITEMS_PER_PAGE = 2;
 
         public MarksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -37,9 +38,9 @@ namespace WebClassbook.Controllers
         }
 
         // GET: Marks
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int currentPage = 1)
         {
-
+            ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE.ToString();
             var applicationDbContext = _context.Marks.Include(w => w.Student).
                 ThenInclude(w => w.ApplicationUser).
                 Include(m => m.Subject).
@@ -49,19 +50,26 @@ namespace WebClassbook.Controllers
             {
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    return View(await applicationDbContext.
+                    var searchModel = applicationDbContext.
                         Where(w => w.TeacherID == GetCurrentTeacher().Id).
-                        Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).ToListAsync());
+                        Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
+                    ViewData["ItemCount"] = searchModel.Count().ToString();
+                    return View(await searchModel.Skip((currentPage-1)*ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
-                return View(await applicationDbContext.Where(w=>w.TeacherID==GetCurrentTeacher().Id).ToListAsync());
+                var teacherModel = applicationDbContext.Where(w => w.TeacherID == GetCurrentTeacher().Id);
+                ViewData["ItemCount"] = teacherModel.ToList().Count().ToString();
+                return View(await teacherModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
             }
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(await applicationDbContext.
-                    Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).ToListAsync());
+                var searchModel = applicationDbContext.
+                    Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
+                ViewData["ItemCount"] = searchModel.Count().ToString();
+                return View(await searchModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
             }
-            return View(await applicationDbContext.ToListAsync());
+            ViewData["ItemCount"] = applicationDbContext.Count().ToString();
+            return View(await applicationDbContext.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
         }
 
         // GET: Marks/Create
@@ -103,7 +111,7 @@ namespace WebClassbook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id,DateTime Date, double Number,string studentName)
+        public async Task<IActionResult> Create(int id,DateTime Date, double Number)
         {
             Mark mark = new Mark();
             mark.Date = Date;
