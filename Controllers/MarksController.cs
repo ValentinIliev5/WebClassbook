@@ -41,13 +41,18 @@ namespace WebClassbook.Controllers
         public async Task<IActionResult> Index(string searchString, int currentPage = 1)
         {
             ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE.ToString();
+
+
             var applicationDbContext = _context.Marks.Include(w => w.Student).
                 ThenInclude(w => w.ApplicationUser).
                 Include(m => m.Subject).
                 Include(m => m.Teacher).
                 ThenInclude(w => w.ApplicationUser);
+
+
             if (User.IsInRole("Teacher"))
             {
+
                 if (!string.IsNullOrEmpty(searchString))
                 {
                     var searchModel = applicationDbContext.
@@ -56,18 +61,28 @@ namespace WebClassbook.Controllers
                     ViewData["ItemCount"] = searchModel.Count().ToString();
                     return View(await searchModel.Skip((currentPage-1)*ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
+
+
                 var teacherModel = applicationDbContext.Where(w => w.TeacherID == GetCurrentTeacher().Id);
                 ViewData["ItemCount"] = teacherModel.ToList().Count().ToString();
                 return View(await teacherModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+
+
             }
 
             if (!string.IsNullOrEmpty(searchString))
             {
+
+
                 var searchModel = applicationDbContext.
                     Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
                 ViewData["ItemCount"] = searchModel.Count().ToString();
                 return View(await searchModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+
+
             }
+
+
             ViewData["ItemCount"] = applicationDbContext.Count().ToString();
             return View(await applicationDbContext.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
         }

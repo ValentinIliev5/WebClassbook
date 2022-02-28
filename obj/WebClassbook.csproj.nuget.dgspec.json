@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj": {}
+    "C:\\WebClassbook\\WebClassbook.csproj": {}
   },
   "projects": {
-    "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj": {
+    "C:\\WebClassbook\\WebClassbook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj",
+        "projectUniqueName": "C:\\WebClassbook\\WebClassbook.csproj",
         "projectName": "WebClassbook",
-        "projectPath": "D:\\classssssssss\\WebClassbook\\WebClassbook.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\classssssssss\\WebClassbook\\obj\\",
+        "projectPath": "C:\\WebClassbook\\WebClassbook.csproj",
+        "packagesPath": "C:\\Users\\justw\\.nuget\\packages\\",
+        "outputPath": "C:\\WebClassbook\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\justw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

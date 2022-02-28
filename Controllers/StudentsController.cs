@@ -42,6 +42,12 @@ namespace WebClassbook.Controllers
             string incExams = _context.Exams.Where(w=>w.Class==GetCurrentStudent().Grade).Count(w => w.Date > DateTime.Now).ToString();
             ViewData["incExams"] = incExams;
 
+            string pardonedAbsences = _context.Absences.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => w.Pardoned).ToString();
+            string unPardonedAbsences = _context.Absences.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => !w.Pardoned).ToString();
+            ViewData["pardoned"] = pardonedAbsences;
+
+            ViewData["unPardoned"] = unPardonedAbsences;
+
             ViewData["StudentInfo"]= GetCurrentStudent().ApplicationUser.Name + " - " + GetCurrentStudent().Grade;
             return View();
 
@@ -76,14 +82,16 @@ namespace WebClassbook.Controllers
             }
             return View(await applicationDbContext.Where(w=>w.Class== GetCurrentStudent().Grade).ToListAsync());
         }
+        //public async Task<IActionResult> MyAbsences() todo 
+        //{
+        //    return View();
+        //}
+
+
         //public async Task<IActionResult> MyRemarks() todo       BRB
         //{
         //    return View();
         //}
         
-        //public async Task<IActionResult> MyAbsences() todo 
-        //{
-        //    return View();
-        //}
     }
 }
