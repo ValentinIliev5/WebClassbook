@@ -82,10 +82,23 @@ namespace WebClassbook.Controllers
             }
             return View(await applicationDbContext.Where(w=>w.Class== GetCurrentStudent().Grade).ToListAsync());
         }
-        //public async Task<IActionResult> MyAbsences() todo 
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> MyAbsences(string searchString) 
+        {
+
+            var applicationDbContext = _context.Absences.
+                Include(w => w.Subject).
+                Include(w => w.Teacher).
+                ThenInclude(w => w.ApplicationUser);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(await applicationDbContext.
+                    Where(w => w.StudentID == GetCurrentStudent().ID).
+                    Where(w => w.Subject.SubjectName.Contains(searchString)).ToListAsync());
+            }
+
+            return View(await applicationDbContext.Where(w=>w.StudentID==GetCurrentStudent().ID).ToListAsync());
+        }
 
 
         //public async Task<IActionResult> MyRemarks() todo       BRB

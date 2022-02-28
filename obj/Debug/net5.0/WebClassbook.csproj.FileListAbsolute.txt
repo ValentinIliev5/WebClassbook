@@ -1004,3 +1004,4 @@ C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Exams\Index.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\Index.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\MyExams.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\MyMarks.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\MyAbsences.cshtml.g.cs
