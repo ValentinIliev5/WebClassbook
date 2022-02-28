@@ -17,7 +17,7 @@ namespace WebClassbook.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-
+        const int ITEMS_PER_PAGE = 5;
 
         public AbsencesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -26,8 +26,10 @@ namespace WebClassbook.Controllers
         }
 
         // GET: Absences
-        public async Task<IActionResult> Index(string searchString, string sortList)
+        public async Task<IActionResult> Index(string searchString, string sortList,int currentPage = 1)
         {
+            ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE.ToString();
+
             var applicationDbContext = _context.Absences.Include(w => w.Student).
                 ThenInclude(w => w.ApplicationUser).
                 Include(m => m.Subject).
@@ -54,19 +56,38 @@ namespace WebClassbook.Controllers
                 {
                     if (!string.IsNullOrEmpty(searchString))
                     {
-                        return View(await applicationDbContext.
+                        var searchModel = applicationDbContext.
                             Where(w => w.TeacherID == GetCurrentTeacher().Id).
-                            Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).ToListAsync());
+                            Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
+
+                        ViewData["itemCount"] = searchModel.Count().ToString();
+
+                        return View(await searchModel.Skip((currentPage - 1) 
+                            * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+
                     }
-                    return View(await applicationDbContext.Where(w => w.TeacherID == GetCurrentTeacher().Id).ToListAsync());
+
+                    var teacherModel = applicationDbContext.
+                        Where(w => w.TeacherID == GetCurrentTeacher().Id);
+                    ViewData["itemCount"] = teacherModel.Count().ToString();
+
+
+                    return View(await teacherModel.Skip((currentPage - 1) 
+                        * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    return View(await applicationDbContext.
-                        Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).ToListAsync());
+                    var searchModel = applicationDbContext.
+                        Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
+                    ViewData["itemCount"] = searchModel.Count().ToString();
+                    return View(await searchModel.Skip((currentPage - 1) 
+                        * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
-                return View(await applicationDbContext.ToListAsync());
+
+                ViewData["itemCount"] = applicationDbContext.Count().ToString();
+
+                return View(await applicationDbContext.Skip((currentPage - 1)*ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
             }
             else
             {
@@ -74,23 +95,35 @@ namespace WebClassbook.Controllers
                 {
                     if (!string.IsNullOrEmpty(searchString))
                     {
-                        return View(await applicationDbContext.
+
+                        var searchModel = applicationDbContext.
                             Where(w => w.TeacherID == GetCurrentTeacher().Id).
                             Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).
-                            Where(w => w.Pardoned == isPardoned).ToListAsync());
+                            Where(w => w.Pardoned == isPardoned);
+                        ViewData["itemCount"] = searchModel.Count().ToString();
+                        return View(await searchModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                     }
-                    return View(await applicationDbContext.Where(w => w.TeacherID == GetCurrentTeacher().Id).
-                        Where(w => w.Pardoned == isPardoned).ToListAsync());
+
+
+                    var teacherModel = applicationDbContext.Where(w => w.TeacherID == GetCurrentTeacher().Id).
+                        Where(w => w.Pardoned == isPardoned);
+                    ViewData["itemCount"] = teacherModel.Count().ToString();
+                    return View(await teacherModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    return View(await applicationDbContext.
+                    var searchModel = applicationDbContext.
                         Where(w => w.Student.ApplicationUser.Name.Contains(searchString)).
-                        Where(w => w.Pardoned == isPardoned).ToListAsync());
+                        Where(w => w.Pardoned == isPardoned);
+                    ViewData["itemCount"] = searchModel.Count().ToString();
+
+                    return View(await searchModel.Skip((currentPage - 1) * 
+                        ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
-                return View(await applicationDbContext.
-                    Where(w => w.Pardoned == isPardoned).ToListAsync());
+                ViewData["ItemCount"] = applicationDbContext.Count().ToString();
+                return View(await applicationDbContext.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+
             }
         }
 

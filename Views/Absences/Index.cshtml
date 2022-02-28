@@ -5,9 +5,9 @@
 }
 
 <h1>Index</h1>
-<form asp-controller="Absences" asp-action="Index" method="get">
+<form id="searchForm" asp-controller="Absences" asp-action="Index" method="get">
     <p>
-        Student Name:  <input class="form-control-sm" type="text" name="SearchString" />
+        Student Name:  <input id ="searchBar" class="form-control-sm" type="text" name="SearchString" />
         Sort by: <select name="sortList" id="sortList" class="form-control-sm">
             <option value="All">All</option>
             <option value="Pardoned">Pardoned</option>
@@ -80,6 +80,18 @@
         }
     </tbody>
 </table>
+
+<form id="pageForm" asp-controller="Absences" asp-action="Index" method="get">
+    <input id="secretSearchBar" class="d-none" type="text" name="SearchString" />
+    @for (int i = 1; i < Math.Ceiling(Convert.ToDouble(ViewData["ItemCount"].ToString()) / int.Parse(ViewData["ITEMS_PER_PAGE"].ToString())) + 1; i++)
+    {
+        
+
+        <input class="d-inline" type="submit" name="currentPage" value="@i" />
+    }
+</form>
+
+
 @if (User.IsInRole("Teacher"))
 {
     <a class="btn btn-light" asp-action="StudentsList">Add absence</a>
@@ -88,9 +100,11 @@
     window.onload = function () {
         const urlSearchParams = new URLSearchParams(window.location.search);
         let sortList = urlSearchParams.get('sortList');
+        let searchBar = urlSearchParams.get('SearchString');
         if (sortList === null) {
             sortList = 'All';
         }
-        document.getElementById('sortList').value = sortList;
+        document.forms['searchForm']['searchBar'].value = searchBar;
+        document.forms['pageForm']['secretSearchBar'].value = searchBar;
     }
 </script>

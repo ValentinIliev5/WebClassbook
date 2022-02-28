@@ -17,7 +17,7 @@ namespace WebClassbook.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        const int ITEMS_PER_PAGE = 2;
+        const int ITEMS_PER_PAGE = 5;
 
         public MarksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -59,11 +59,13 @@ namespace WebClassbook.Controllers
                         Where(w => w.TeacherID == GetCurrentTeacher().Id).
                         Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
                     ViewData["ItemCount"] = searchModel.Count().ToString();
-                    return View(await searchModel.Skip((currentPage-1)*ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+                    return View(await searchModel.Skip((currentPage-1)
+                        *ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
                 }
 
 
-                var teacherModel = applicationDbContext.Where(w => w.TeacherID == GetCurrentTeacher().Id);
+                var teacherModel = applicationDbContext.
+                    Where(w => w.TeacherID == GetCurrentTeacher().Id);
                 ViewData["ItemCount"] = teacherModel.ToList().Count().ToString();
                 return View(await teacherModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
 
@@ -77,7 +79,8 @@ namespace WebClassbook.Controllers
                 var searchModel = applicationDbContext.
                     Where(w => w.Student.ApplicationUser.Name.Contains(searchString));
                 ViewData["ItemCount"] = searchModel.Count().ToString();
-                return View(await searchModel.Skip((currentPage - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+                return View(await searchModel.Skip((currentPage - 1) 
+                    * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
 
 
             }
