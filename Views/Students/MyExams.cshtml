@@ -5,9 +5,9 @@
 }
 
 <h1>Index</h1>
-<form asp-controller="Students" asp-action="MyExams" method="get">
+<form id="searchForm" asp-controller="Students" asp-action="MyExams" method="get">
     <p>
-        Subject:  <input class="form-control-sm" type="text" name="SearchString" />
+        Subject:  <input id="searchBar" class="form-control-sm" type="text" name="SearchString" />
         <input class="btn btn-light" type="submit" value="Search" />
     </p>
 </form>
@@ -50,3 +50,21 @@
         }
     </tbody>
 </table>
+
+<form id="pageForm" asp-controller="Students" asp-action="MyExams" method="get">
+    <input id="secretSearchBar" class="d-none" type="text" name="SearchString" />
+    @for (int i = 1; i < Math.Ceiling(Convert.ToDouble(ViewData["ItemsCount"].ToString()) / int.Parse(ViewData["ITEMS_PER_PAGE"].ToString())) + 1; i++)
+    {
+
+        <input class="btn btn-light d-inline" type="submit" name="currentPage" value="@i" />
+    }
+</form>
+
+<script>
+    window.onload = function () {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        let searchBar = urlSearchParams.get('SearchString');
+        document.forms['searchForm']['searchBar'].value = searchBar;
+        document.forms['pageForm']['secretSearchBar'].value = searchBar;
+    }
+</script>

@@ -11,35 +11,36 @@ using System.Threading.Tasks;
 using WebClassbook.Data;
 using WebClassbook.Models;
 namespace WebClassbook.Controllers
-{       
+{
     [Authorize(Roles = "Student")]
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
+        const int ITEMS_PER_PAGE = 5;
         public StudentsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-        public string GetCurrentApplicationUserId() 
+        public string GetCurrentApplicationUserId()
         {
             return _userManager.GetUserId(HttpContext.User);
         }
 
-        public Student GetCurrentStudent() 
+        public Student GetCurrentStudent()
         {
-            return _context.Students.Include(w=>w.ApplicationUser).First(w => w.ApplicationUserID == GetCurrentApplicationUserId());
+            return _context.Students.Include(w => w.ApplicationUser).First(w => w.ApplicationUserID == GetCurrentApplicationUserId());
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index()//todo remarks
         {
             string avgMark = _context.Marks.Where(w => w.StudentID == GetCurrentStudent().ID).Average(w => w.Number).ToString("0.00");
             ViewData["AvgMark"] = avgMark;
 
-            string incExams = _context.Exams.Where(w=>w.Class==GetCurrentStudent().Grade).Count(w => w.Date > DateTime.Now).ToString();
+            string incExams = _context.Exams.Where(w => w.Class == GetCurrentStudent().Grade).Count(w => w.Date > DateTime.Now).ToString();
             ViewData["incExams"] = incExams;
 
             string pardonedAbsences = _context.Absences.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => w.Pardoned).ToString();
@@ -48,12 +49,13 @@ namespace WebClassbook.Controllers
 
             ViewData["unPardoned"] = unPardonedAbsences;
 
-            ViewData["StudentInfo"]= GetCurrentStudent().ApplicationUser.Name + " - " + GetCurrentStudent().Grade;
+            ViewData["StudentInfo"] = GetCurrentStudent().ApplicationUser.Name + " - " + GetCurrentStudent().Grade;
             return View();
 
         }
-        public async Task<IActionResult> MyMarks(string searchString)
+        public async Task<IActionResult> MyMarks(string searchString, int currentPage = 1)//done
         {
+            ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE;
             var applicationDbContext = _context.Marks.Include(w => w.Student).
                ThenInclude(w => w.ApplicationUser).
                Include(m => m.Subject).
@@ -62,29 +64,45 @@ namespace WebClassbook.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View( await applicationDbContext.
+                var searchModel = applicationDbContext.
                     Where(w => w.StudentID == GetCurrentStudent().ID).
-                    Where(w => w.Subject.SubjectName.Contains(searchString)).ToListAsync());
+                    Where(w => w.Subject.SubjectName.Contains(searchString));
+                ViewData["ItemsCount"] = searchModel.Count().ToString();
+
+                return View(await searchModel.Skip((currentPage - 1)
+                    * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
             }
-            return View( await applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID).ToListAsync());
+            var studentModel = applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID);
+            ViewData["ItemsCount"] = studentModel.Count().ToString();
+            return View(await studentModel.Skip((currentPage - 1)
+                * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
 
         }
-        public async Task<IActionResult> MyExams(string searchString) 
+        public async Task<IActionResult> MyExams(string searchString, int currentPage = 1) //done
         {
+            ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE;
             var applicationDbContext = _context.Exams.Include(w => w.Subject).
-                Include(w=>w.Teacher).ThenInclude(w=>w.ApplicationUser);
+                Include(w => w.Teacher).ThenInclude(w => w.ApplicationUser);
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(await applicationDbContext.
+                var searchModel = applicationDbContext.
                     Where(w => w.Class == GetCurrentStudent().Grade).
-                    Where(w => w.Subject.SubjectName.Contains(searchString)).ToListAsync());
-            }
-            return View(await applicationDbContext.Where(w=>w.Class== GetCurrentStudent().Grade).ToListAsync());
-        }
-        public async Task<IActionResult> MyAbsences(string searchString) 
-        {
+                    Where(w => w.Subject.SubjectName.Contains(searchString));
+                ViewData["ItemsCount"] = searchModel.Count().ToString();
 
+                return View(await searchModel.Skip((currentPage - 1)
+                    * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+            }
+
+            var studentModel = applicationDbContext.Where(w => w.Class == GetCurrentStudent().Grade);
+            ViewData["ItemsCount"] = studentModel.Count().ToString();
+            return View(await studentModel.Skip((currentPage - 1)
+                * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+        }
+        public async Task<IActionResult> MyAbsences(string searchString, int currentPage = 1) //done
+        {
+            ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE;
             var applicationDbContext = _context.Absences.
                 Include(w => w.Subject).
                 Include(w => w.Teacher).
@@ -92,19 +110,28 @@ namespace WebClassbook.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(await applicationDbContext.
+                var searchModel = applicationDbContext.
                     Where(w => w.StudentID == GetCurrentStudent().ID).
-                    Where(w => w.Subject.SubjectName.Contains(searchString)).ToListAsync());
+                    Where(w => w.Subject.SubjectName.Contains(searchString));
+                ViewData["ItemsCount"] = searchModel.Count().ToString();
+
+                return View(await searchModel.Skip((currentPage - 1)
+                * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
             }
 
-            return View(await applicationDbContext.Where(w=>w.StudentID==GetCurrentStudent().ID).ToListAsync());
+            var studentModel = applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID);
+            ViewData["ItemsCount"] = studentModel.Count().ToString();
+
+            return View(await studentModel.Skip((currentPage - 1)
+                * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
         }
 
 
         //public async Task<IActionResult> MyRemarks() todo       BRB
         //{
+        //ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE;
         //    return View();
         //}
-        
+
     }
 }
