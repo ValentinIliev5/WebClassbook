@@ -31,11 +31,11 @@
     <div class="row p-2">
         <div class="col-6 text-center">
             <a asp-action="MyAbsences">
-                <div style="width:95%" class="btn btn-light p-5">   <!-- MYREMARKS-->
-                    <h2 class="pb-4">Absences </h2>
+                <div style="width:95%" class="btn btn-light p-5">   
+                    <h2 class="pb-4">My Absences </h2>
                     <h3>
-                    <span class="text-success">@ViewData["pardoned"]</span>
-                        / 
+                        <span class="text-success">@ViewData["pardoned"]</span>
+                            / 
                         <span class="text-danger">@ViewData["unPardoned"]</span> 
                     </h3>
                 </div>
@@ -43,10 +43,14 @@
         </div>
 
         <div class="col-6 text-center">
-            <a asp-action="MyMarks">
-                <div style="width:95%" class="btn btn-light p-5">  <!-- MYABS-->
-                    <h2 class="pb-4">My Marks </h2>
-                    <h3>Average: @ViewData["AvgMark"]</h3>
+            <a asp-action="MyRemarks">
+                <div style="width:95%" class="btn btn-light p-5">  
+                    <h2 class="pb-4">My Remarks </h2>
+                    <h3>
+                        <span class="text-success">@ViewData["positiveRemarks"]</span>
+                        /
+                        <span class="text-danger">@ViewData["negativeRemarks"]</span>
+                    </h3>
                 </div>
             </a>
         </div>

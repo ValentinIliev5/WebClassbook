@@ -37,18 +37,33 @@ namespace WebClassbook.Controllers
 
         public IActionResult Index()//todo remarks
         {
+            //FOR MARKS WINDOW
             string avgMark = _context.Marks.Where(w => w.StudentID == GetCurrentStudent().ID).Average(w => w.Number).ToString("0.00");
             ViewData["AvgMark"] = avgMark;
 
+
+            //FOR EXAMS WINDOW
             string incExams = _context.Exams.Where(w => w.Class == GetCurrentStudent().Grade).Count(w => w.Date > DateTime.Now).ToString();
             ViewData["incExams"] = incExams;
 
+
+            //FOR ABSENCES WINDOW
             string pardonedAbsences = _context.Absences.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => w.Pardoned).ToString();
             string unPardonedAbsences = _context.Absences.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => !w.Pardoned).ToString();
             ViewData["pardoned"] = pardonedAbsences;
 
             ViewData["unPardoned"] = unPardonedAbsences;
 
+
+            //FOR REMARKS WINDOW
+            string positiveRemarks = _context.Remarks.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => w.IsPositive).ToString();
+            string negativeRemarks = _context.Remarks.Where(w => w.StudentID == GetCurrentStudent().ID).Count(w => !w.IsPositive).ToString();
+
+            ViewData["positiveRemarks"] = positiveRemarks;
+            ViewData["negativeRemarks"] = negativeRemarks;
+
+
+            //STUDENT INFO
             ViewData["StudentInfo"] = GetCurrentStudent().ApplicationUser.Name + " - " + GetCurrentStudent().Grade;
             return View();
 
@@ -127,11 +142,23 @@ namespace WebClassbook.Controllers
         }
 
 
-        //public async Task<IActionResult> MyRemarks() todo       BRB
-        //{
-        //ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE;
-        //    return View();
-        //}
+        public async Task<IActionResult> MyRemarks(int currentPage=1)
+        {
+        
+            ViewData["ITEMS_PER_PAGE"] = ITEMS_PER_PAGE;
+
+            var applicationDbContext = _context.Remarks.
+                Include(w => w.Teacher).
+                ThenInclude(w => w.ApplicationUser);
+
+            var studentModel = applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID);
+
+            ViewData["ItemsCount"] = studentModel.Count().ToString();
+            return View(await studentModel.Skip((currentPage - 1)
+                * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
+
+            return View();
+        }
 
     }
 }
