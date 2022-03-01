@@ -1,22 +1,16 @@
-﻿@model IEnumerable<WebClassbook.Models.Absence>
+﻿@model IEnumerable<WebClassbook.Models.Remark>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Remarks";
 }
 
 <h1>Index</h1>
-<form id="searchForm" asp-controller="Absences" asp-action="Index" method="get">
+<form id="searchForm" asp-controller="Remarks" asp-action="Index" method="get">
     <p>
-        Student Name:  <input id ="searchBar" class="form-control-sm" type="text" name="SearchString" />
-        Sort by: <select name="sortList" id="sortList" class="form-control-sm">
-            <option value="All">All</option>
-            <option value="Pardoned">Pardoned</option>
-            <option value="Not Pardoned">Not Pardoned</option>
-        </select>
-        <input class="btn btn-light" type="submit" onclick="sortByPardoned()" value="Search" />
+        Student Name:  <input id="searchBar" class="form-control-sm" type="text" name="SearchString" />
+        <input class="btn btn-light" type="submit" value="Search" />
     </p>
 </form>
-
 <table class="table">
     <thead>
         <tr>
@@ -24,19 +18,17 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pardoned)
+                @Html.DisplayNameFor(model => model.IsPositive)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student.Grade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student.ClassNumber)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subject)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Teacher)
@@ -52,19 +44,16 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pardoned)
+                    @Html.DisplayFor(modelItem => item.IsPositive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Student.Grade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Student.ClassNumber)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Student.ApplicationUser.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Teacher.ApplicationUser.Name)
@@ -78,10 +67,10 @@
     </tbody>
 </table>
 
-<form id="pageForm" asp-controller="Absences" asp-action="Index" method="get">
+<form id="pageForm" asp-controller="Remarks" asp-action="Index" method="get">
     <input id="secretSearchBar" class="d-none" type="text" name="SearchString" />
     <input id="secretSortList" class="d-none" type="text" name="sortList" />
-    @for (int i = 1; i < Math.Ceiling(Convert.ToDouble(ViewData["ItemCount"].ToString()) / int.Parse(ViewData["ITEMS_PER_PAGE"].ToString())) + 1; i++)
+    @for (int i = 1; i < Math.Ceiling(Convert.ToDouble(ViewData["ItemsCount"].ToString()) / int.Parse(ViewData["ITEMS_PER_PAGE"].ToString())) + 1; i++)
     {
 
 
@@ -92,19 +81,14 @@
 
 @if (User.IsInRole("Teacher"))
 {
-    <a class="btn btn-light" asp-action="StudentsList">Add absence</a>
+    <a class="btn btn-light" asp-action="StudentsList">Add remark</a>
 }
 <script>
     window.onload = function () {
         const urlSearchParams = new URLSearchParams(window.location.search);
-        let sortList = urlSearchParams.get('sortList');
         let searchBar = urlSearchParams.get('SearchString');
-        if (sortList === null) {
-            sortList = 'All';
-        }
-        document.forms['searchForm']['sortList'].value = sortList;
+
         document.forms['searchForm']['searchBar'].value = searchBar;
         document.forms['pageForm']['secretSearchBar'].value = searchBar;
-        document.forms['pageForm']['secretSortList'].value = sortList;
     }
 </script>

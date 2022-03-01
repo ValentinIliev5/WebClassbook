@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Student>
+
+@{
+    ViewData["Title"] = "Add Remark";
+}
+
+<h1>Edit</h1>
+<h4>Students</h4>
+
+<form asp-controller="Remarks" asp-action="StudentsList" method="get">
+    <p>
+        Grade:  <input type="text" class="form-control-sm" name="SearchString" />
+        <input class="btn btn-light" type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Name)
+            </th>
+
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Name)
+                </td>
+                <td>
+                    <a class="btn btn-light" asp-action="Create" asp-route-id="@item.ID">Add remark</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
