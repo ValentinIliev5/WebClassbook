@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebClassbook.Models.Remark>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Remarks";
 }
 
 <h1>My remarks</h1>
@@ -54,12 +54,3 @@
         <input class="btn btn-light d-inline" type="submit" name="currentPage" value="@i" />
     }
 </form>
-
-<script>
-    window.onload = function () {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        let searchBar = urlSearchParams.get('SearchString');
-        document.forms['searchForm']['searchBar'].value = searchBar;
-        document.forms['pageForm']['secretSearchBar'].value = searchBar;
-    }
-</script>

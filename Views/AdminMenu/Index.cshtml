@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Admin Menu";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Choose a function.</h1>
+</div>
+
+
+<div class="row p-3">
+    <div class="col-4 text-center">
+        <a asp-area="" asp-controller="UserRole">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Edit User Roles: @ViewData["needApproval"] pending </h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-4 text-center">
+        <a asp-area="" asp-controller="StudentsEdit">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Edit Students</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-4 text-center">
+        <a asp-area="" asp-controller="TeacherEdit">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Edit Teachers</h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+<br>
+<br>
+<div class="row p-4">
+    <div class="col-3 text-center">
+        <a asp-area="" asp-controller="Marks">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Manage Marks</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-3 text-center">
+        <a asp-area="" asp-controller="Exams">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Manage Exams</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-3 text-center">
+        <a asp-area="" asp-controller="Absences">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Manage Absences</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-3 text-center">
+        <a asp-area="" asp-controller="Remarks">
+            <div style="width:95%" class="btn btn-light p-5">
+                <h2 class="pb-4">Manage Remarks</h2>
+            </div>
+        </a>
+    </div>
+</div>

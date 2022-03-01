@@ -1011,3 +1011,4 @@ C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Remarks\StudentsList.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Remarks\Edit.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Remarks\Delete.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\MyRemarks.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\Razor\Views\AdminMenu\Index.cshtml.g.cs

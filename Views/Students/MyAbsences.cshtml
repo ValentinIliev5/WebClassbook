@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebClassbook.Models.Absence>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Absences";
 }
 
-<h1>Index</h1>
+<h1>My Absences</h1>
 <form id="searchForm" asp-controller="Students" asp-action="MyAbsences" method="get">
     <p>
         Subject:  <input id="searchBar" class="form-control-sm" type="text" name="SearchString" />
