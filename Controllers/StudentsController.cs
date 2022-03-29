@@ -154,10 +154,10 @@ namespace WebClassbook.Controllers
             var studentModel = applicationDbContext.Where(w => w.StudentID == GetCurrentStudent().ID);
 
             ViewData["ItemsCount"] = studentModel.Count().ToString();
+
             return View(await studentModel.Skip((currentPage - 1)
                 * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToListAsync());
 
-            return View();
         }
 
     }

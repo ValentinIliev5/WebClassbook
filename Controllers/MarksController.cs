@@ -201,7 +201,8 @@ namespace WebClassbook.Controllers
 
                     if (_context.Subject.Any(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()))
                     {
-                        _context.Marks.First(w => w.MarkID == id).SubjectID = _context.Subject.First(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()).SubjectID;
+                        _context.Marks.First(w => w.MarkID == id).SubjectID = _context.Subject.First(w => w.SubjectName == 
+                        Request.Form["Subject.SubjectName"].ToString()).SubjectID;
                     }
                     
                     await _context.SaveChangesAsync();

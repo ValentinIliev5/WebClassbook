@@ -203,7 +203,8 @@ namespace WebClassbook.Controllers
                     _context.Absences.Find(id).Pardoned = Pardoned;
                     if (_context.Subject.Any(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()))
                     {
-                        _context.Absences.Find(id).SubjectID = _context.Subject.First(w => w.SubjectName == Request.Form["Subject.SubjectName"].ToString()).SubjectID;
+                        _context.Absences.Find(id).SubjectID = _context.Subject.First(w => w.SubjectName == 
+                        Request.Form["Subject.SubjectName"].ToString()).SubjectID;
                     }
 
                     await _context.SaveChangesAsync();

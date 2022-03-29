@@ -71,7 +71,7 @@ namespace WebClassbook.Controllers
                 teacher.Grade = Grade;
                 teacher.ApplicationUserID = id;
                 List<string> subjectnames = new List<string>();
-                subjectnames = Request.Form["Subjects"].ToList();//RABoti!!!
+                subjectnames = Request.Form["Subjects"].ToList();
                 List<Subject> subjectsToAdd = new List<Subject>();
                 foreach (var item in subjectnames)
                 {
