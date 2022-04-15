@@ -28,7 +28,9 @@ using WebClassbook.Models;
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f7a3e3e20df80ee3ec7f0e7a0ff22e9ab11af625", @"/Views/Students/MyMarks.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"44d802493aa8900f700171748bd5368e1a618b1a", @"/Views/_ViewImports.cshtml")]
+    #nullable restore
     public class Views_Students_MyMarks : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<WebClassbook.Models.Mark>>
+    #nullable disable
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("id", new global::Microsoft.AspNetCore.Html.HtmlString("searchForm"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "Students", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -70,7 +72,7 @@ using WebClassbook.Models;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n<h1>My Marks</h1>\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f7a3e3e20df80ee3ec7f0e7a0ff22e9ab11af6254979", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f7a3e3e20df80ee3ec7f0e7a0ff22e9ab11af6255025", async() => {
                 WriteLiteral("\r\n    <p>\r\n        Subject:  <input id=\"searchBar\" class=\"form-control-sm\" type=\"text\" name=\"SearchString\" />\r\n        <input class=\"btn btn-light\" type=\"submit\" value=\"Search\" />\r\n    </p>\r\n");
             }
             );
@@ -206,7 +208,7 @@ using WebClassbook.Models;
 #line hidden
 #nullable disable
             WriteLiteral("    </tbody>\r\n</table>\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f7a3e3e20df80ee3ec7f0e7a0ff22e9ab11af62511228", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f7a3e3e20df80ee3ec7f0e7a0ff22e9ab11af62511274", async() => {
                 WriteLiteral("\r\n    <input id=\"secretSearchBar\" class=\"d-none\" type=\"text\" name=\"SearchString\" />\r\n");
 #nullable restore
 #line 67 "C:\WebClassbook\Views\Students\MyMarks.cshtml"
@@ -267,16 +269,26 @@ WriteAttributeValue("", 2362, i, 2362, 2, false);
 </script>");
         }
         #pragma warning restore 1998
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<IEnumerable<WebClassbook.Models.Mark>> Html { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<IEnumerable<WebClassbook.Models.Mark>> Html { get; private set; } = default!;
+        #nullable disable
     }
 }
 #pragma warning restore 1591

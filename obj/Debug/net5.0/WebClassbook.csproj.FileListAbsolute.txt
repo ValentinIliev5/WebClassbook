@@ -375,7 +375,6 @@ C:\WebClassbook\bin\Debug\net5.0\WebClassbook.deps.json
 C:\WebClassbook\bin\Debug\net5.0\WebClassbook.runtimeconfig.json
 C:\WebClassbook\bin\Debug\net5.0\WebClassbook.runtimeconfig.dev.json
 C:\WebClassbook\bin\Debug\net5.0\WebClassbook.dll
-C:\WebClassbook\bin\Debug\net5.0\ref\WebClassbook.dll
 C:\WebClassbook\bin\Debug\net5.0\WebClassbook.pdb
 C:\WebClassbook\bin\Debug\net5.0\WebClassbook.Views.dll
 C:\WebClassbook\bin\Debug\net5.0\WebClassbook.Views.pdb
@@ -1012,3 +1011,4 @@ C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Remarks\Edit.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Remarks\Delete.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\Students\MyRemarks.cshtml.g.cs
 C:\WebClassbook\obj\Debug\net5.0\Razor\Views\AdminMenu\Index.cshtml.g.cs
+C:\WebClassbook\obj\Debug\net5.0\refint\WebClassbook.dll

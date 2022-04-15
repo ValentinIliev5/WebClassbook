@@ -28,7 +28,9 @@ using WebClassbook.Models;
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0299e3bcc16677e73db2514e6ae430e0247907ba", @"/Views/Students/Index.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"44d802493aa8900f700171748bd5368e1a618b1a", @"/Views/_ViewImports.cshtml")]
+    #nullable restore
     public class Views_Students_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
+    #nullable disable
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "MyMarks", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "MyExams", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -75,7 +77,7 @@ using WebClassbook.Models;
 #line hidden
 #nullable disable
             WriteLiteral("</h1>\r\n\r\n</div>\r\n<div class=\"container\">\r\n\r\n    <div class=\"row p-2\">\r\n        <div class=\"col-6 text-center\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba4767", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba4813", async() => {
                 WriteLiteral("\r\n                <div style=\"width:95%\" class=\"btn btn-light p-5\"> <!-- MYMARKS-->\r\n                    <h2 class=\"pb-4\">My Marks </h2>\r\n                    <h3>Average: ");
 #nullable restore
 #line 16 "C:\WebClassbook\Views\Students\Index.cshtml"
@@ -99,7 +101,7 @@ using WebClassbook.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n\r\n        <div class=\"col-6 text-center\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba6442", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba6488", async() => {
                 WriteLiteral("\r\n                <div style=\"width:95%\" class=\"btn btn-light p-5\">\r\n                    <h2 class=\"pb-4\">My Exams</h2>\r\n                    <h3> Incoming Tests: ");
 #nullable restore
 #line 25 "C:\WebClassbook\Views\Students\Index.cshtml"
@@ -123,7 +125,7 @@ using WebClassbook.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row p-2\">\r\n        <div class=\"col-6 text-center\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba8162", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba8208", async() => {
                 WriteLiteral("\r\n                <div style=\"width:95%\" class=\"btn btn-light p-5\">   \r\n                    <h2 class=\"pb-4\">My Absences </h2>\r\n                    <h3>\r\n                        <span class=\"text-success\">");
 #nullable restore
 #line 37 "C:\WebClassbook\Views\Students\Index.cshtml"
@@ -155,7 +157,7 @@ using WebClassbook.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n\r\n        <div class=\"col-6 text-center\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba10260", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0299e3bcc16677e73db2514e6ae430e0247907ba10306", async() => {
                 WriteLiteral("\r\n                <div style=\"width:95%\" class=\"btn btn-light p-5\">  \r\n                    <h2 class=\"pb-4\">My Remarks </h2>\r\n                    <h3>\r\n                        <span class=\"text-success\">");
 #nullable restore
 #line 50 "C:\WebClassbook\Views\Students\Index.cshtml"
@@ -189,16 +191,26 @@ using WebClassbook.Models;
             WriteLiteral("\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n");
         }
         #pragma warning restore 1998
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IUrlHelper Url { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.IViewComponentHelper Component { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; } = default!;
+        #nullable disable
+        #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<dynamic> Html { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<dynamic> Html { get; private set; } = default!;
+        #nullable disable
     }
 }
 #pragma warning restore 1591
