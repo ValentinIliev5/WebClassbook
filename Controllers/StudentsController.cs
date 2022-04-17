@@ -35,10 +35,11 @@ namespace WebClassbook.Controllers
         }
 
 
-        public IActionResult Index()//todo remarks
+        public IActionResult Index()
         {
             //FOR MARKS WINDOW
-            string avgMark = _context.Marks.Where(w => w.StudentID == GetCurrentStudent().ID).Average(w => w.Number).ToString("0.00");
+            string avgMark = _context.Marks.Where(w => w.StudentID == GetCurrentStudent().ID).Select(w=>w.Number).DefaultIfEmpty().Average().ToString("0.00");
+            
             ViewData["AvgMark"] = avgMark;
 
 
